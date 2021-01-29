@@ -1,20 +1,41 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretController : MonoBehaviour
 {
     public GameObject defaultShot;
+    public GameObject gameManagerObject;
 
     public float movementSpeed = 10.0f;
     public float fireDelta = 0.2f;
     public float bulletSpeed = 10f;
 
+    private float health = 100f;
+    private GameManager gameManager;
+
     float timeSinceFire;
+
+    public float Health
+    {
+        get => health;
+        set
+        {
+            health = value;
+            NotifyHealth();
+        }
+    }
+
+    private void NotifyHealth()
+    {
+        gameManager.UpdateHealth();
+    }
 
     private void Start()
     {
         timeSinceFire = 0f;
+        gameManager = gameManagerObject.GetComponent<GameManager>();
     }
 
 
