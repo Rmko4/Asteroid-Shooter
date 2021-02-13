@@ -13,6 +13,10 @@ public class TurretController : MonoBehaviour
     public float bulletSpeed = 10f;
 
     private float health = 100f;
+
+    private float xOffset = -1.5f;
+    private float yOffset = -4.85f;
+    private float earthRadius = 100f;
     private GameManager gameManager;
 
     float timeSinceFire;
@@ -60,7 +64,9 @@ public class TurretController : MonoBehaviour
         }
         else
         {
-            transform.Translate(translation, 0, 0);
+            float newX = position.x - xOffset;
+            position.y = Mathf.Sqrt(earthRadius * earthRadius - newX * newX) - earthRadius + yOffset;
+            transform.position = position;
         }
 
         if (Input.GetAxis("Fire1") == 1f && timeSinceFire > fireDelta)

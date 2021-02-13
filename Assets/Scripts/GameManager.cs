@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static float xMin = -8.6f;
-    public static float xMax = 5.6f;
+    public static float xMin = -8.2f;
+    public static float xMax = 5.2f;
     public static float yMin = -5f;
 
     public GameObject turret;
@@ -34,17 +34,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null && instance != gameObject)
-        {
-            Destroy(instance);
-        }
-        instance = gameObject;
-
-        DontDestroyOnLoad(gameObject);
+        DestroyOld();
     }
     // Start is called before the first frame update
     void Start()
     {
+        DestroyOld();
         Score = 0;
         turretController = turret.GetComponent<TurretController>();
         UpdateHealth();
@@ -68,5 +63,16 @@ public class GameManager : MonoBehaviour
     public void UpdateScore()
     {
         scoreText.text = Score.ToString();
+    }
+
+    private void DestroyOld()
+    {
+        if (instance != null && instance != gameObject)
+        {
+            DestroyImmediate(instance);
+        }
+        instance = gameObject;
+
+        DontDestroyOnLoad(gameObject);
     }
 }

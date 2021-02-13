@@ -14,7 +14,7 @@ public class GameOverScore : MonoBehaviour
         if (gameManagerObject != null)
         {
             GameManager gameManager = gameManagerObject.GetComponent<GameManager>();
-            scoreText.text = string.Concat(scoreText, gameManager.Score.ToString());
+            scoreText.text = string.Concat(scoreText.text, gameManager.Score.ToString());
         }
     }
 
