@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class AsteroidCycle : MonoBehaviour
 {
-    public float health = 10f;
-    public float damage = 20f;
-    public int score = 1;
+    private float health = 10f;
+    private float damage = 20f;
+    private int score = 1;
+    private Resource resources;
+    
 
     private TurretController turretController;
     private GameManager gameManager;
@@ -19,12 +21,14 @@ public class AsteroidCycle : MonoBehaviour
         gameManager = gameManagerObject.GetComponent<GameManager>();
     }
 
-    public void SetParameters(float health, float damage, float score)
+    public void SetParameters(float health, float damage, float score, Resource resources)
     {
         this.health = health;
         this.damage = damage;
   
         this.score = (int)score;
+
+        this.resources = resources;
     }
     // Update is called once per frame
     void Update()
@@ -38,6 +42,7 @@ public class AsteroidCycle : MonoBehaviour
             else
             {
                 gameManager.Score += score;
+                turretController.AddResources(resources);
             }
             Destroy(gameObject);
         }
